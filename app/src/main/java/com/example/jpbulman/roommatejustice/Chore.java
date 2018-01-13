@@ -18,7 +18,7 @@ public class Chore implements Serializable{
     }
 
     public String toString(){
-        return this.name+String.valueOf(this.pointValue);
+        return this.name+" "+String.valueOf(this.pointValue);
     }
 
 }

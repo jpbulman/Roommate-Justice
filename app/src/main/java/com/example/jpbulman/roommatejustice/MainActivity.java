@@ -3,9 +3,11 @@ package com.example.jpbulman.roommatejustice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -48,8 +50,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         if(requestCode==addChoreCode){
             if(resultCode==RESULT_OK){
-                Button b = findViewById(R.id.addChore);
-                b.setText(((Chore)getIntent().getExtras().getSerializable("1234")).toString());
+                //Button b = findViewById(R.id.addChore);
+                try {
+                    Bundle bringingChores = data.getExtras();
+                    Chore c = (Chore)bringingChores.getSerializable("1234");
+                    LinearLayout l = findViewById(R.id.LOTlayout);
+                    TextView t = new TextView(this);
+                    t.setText(c.toString());
+                    l.addView(t);
+                }
+                catch (Exception e){
+                    Log.d("H","",e);}
             }
         }
     }
