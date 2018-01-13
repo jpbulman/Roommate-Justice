@@ -1,47 +1,39 @@
 package com.example.jpbulman.roommatejustice;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Chore> listOfChores = new ArrayList<Chore>();
     static final int addChoreCode = 1;
 
-    private ArrayAdapter a;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        a = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listOfChores);
+        arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listOfChores);
         ListView l = findViewById(R.id.listViewChoreHolder);
-        l.setAdapter(a);
+        l.setAdapter(arrayAdapter);
+        updateTotalPointsDisplay();
     }
 
 //    public void sendMessage(View view){
-//        //Sends a message on a new screen
+//        //Sends arrayAdapter message on arrayAdapter new screen
 //        Intent intent = new Intent(this,DisplayMessageActivity.class);
 //        EditText editText = (EditText) findViewById(R.id.editText);
 //        String message = editText.getText().toString();
@@ -54,6 +46,47 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent,addChoreCode);
     }
 
+    private void chorePopUp(final Chore c){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setMessage(R.string.task_doer_message).setTitle(c.getTitle());
+        builder.setTitle(c.getTitle());
+        //builder.show();
+
+        String[] listOfNames = {"Complete Task","Remove Task"};
+        final ArrayList<Integer> result = new ArrayList<>();
+        result.add(-1);
+        builder.setSingleChoiceItems(listOfNames, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                result.set(0, i);
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Nothing happens when they cancel
+            }
+        });
+        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int resultInt = result.get(0).intValue();
+                if (resultInt == -1) {
+                    return;
+                } else if (resultInt == 0) {
+                    c.setCompleted();
+                    updateTotalPointsDisplay();
+                } else if (resultInt == 1) {
+                    arrayAdapter.remove(c);
+                }
+            }
+        });
+        //builder.setNeutralButton();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         if(requestCode==addChoreCode){
@@ -61,22 +94,33 @@ public class MainActivity extends AppCompatActivity {
                 //Button b = findViewById(R.id.addChore);
                 try {
                     Bundle bringingChores = data.getExtras();
-                    Chore c = (Chore)bringingChores.getSerializable("1234");
+                    final Chore c = (Chore)bringingChores.getSerializable("1234");
                     listOfChores.add(c);
                     Chore[] arrayOfChores  = listOfChores.toArray(new Chore[listOfChores.size()]);
                     ListView l = findViewById(R.id.listViewChoreHolder);
                     l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            view.setBackgroundColor(Color.GREEN);
+                            //view.setBackgroundColor(Color.GREEN);
+                            chorePopUp(c);
                         }
                     });
-                    a.notifyDataSetChanged();
+                    arrayAdapter.notifyDataSetChanged();
                 }
                 catch (Exception e){
                     Log.d("H","",e);}
             }
         }
+    }
+
+    private void updateTotalPointsDisplay() {
+
+        TextView tpd = (TextView)findViewById(R.id.totalPointsDisplay);
+        String toSet = getResources().getString(R.string.total_points) + " " + String.valueOf(Chore.getTotalPoints());
+        tpd.setText(toSet);
+
+
+        //tpd.gettex(R.string.total_points + Chore.getTotalPoints());
     }
 
 }

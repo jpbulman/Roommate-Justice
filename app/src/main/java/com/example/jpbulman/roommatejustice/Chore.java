@@ -1,5 +1,7 @@
 package com.example.jpbulman.roommatejustice;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -8,17 +10,33 @@ import java.io.Serializable;
 
 public class Chore implements Serializable{
 
-    private boolean isCompleted;
-    private String name;
-    private int pointValue;
+    private int timesCompleted = 0;
+    private String name = "";
+    private int pointValue = 0;
+    private static int totalPoints = 0;
 
     public Chore(String name,int pointValue){
         this.name=name;
         this.pointValue=pointValue;
     }
 
+    public void setCompleted() {
+        Log.d("SetCompleted", "SetCompleted just ran");
+        Log.d("Total Points", Chore.getTotalPoints() + "");
+        totalPoints += pointValue;
+        timesCompleted++;
+    }
+
+    public String getTitle(){
+        return this.name;
+    }
+
     public String toString(){
         return this.name+" "+String.valueOf(this.pointValue);
+    }
+
+    public static int getTotalPoints() {
+        return totalPoints;
     }
 
 }

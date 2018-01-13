@@ -3,4 +3,10 @@
     <string name="edit_message">Enter A Message</string>
     <string name="chore_name">Name</string>
     <string name="point_value">Point Value</string>
+    <string name="task_doer_message">What would you like to do with this task?</string>
+    <string name="delete_chore">Delete</string>
+    <string name="complete_Chore">Complete Chore</string>
+    <string name="cancel">Cancel</string>
+    <string name="okay">OK</string>
+    <string name="total_points">Total Points:</string>
 </resources>
