@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Roommate-Justice.iml" filepath="$PROJECT_DIR$/Roommate-Justice.iml" />
       <module fileurl="file://$PROJECT_DIR$/RoommateJustice.iml" filepath="$PROJECT_DIR$/RoommateJustice.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

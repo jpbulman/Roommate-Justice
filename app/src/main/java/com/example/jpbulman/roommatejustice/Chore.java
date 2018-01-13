@@ -23,6 +23,7 @@ public class Chore implements Serializable{
     public void setCompleted() {
         Log.d("SetCompleted", "SetCompleted just ran");
         Log.d("Total Points", Chore.getTotalPoints() + "");
+
         totalPoints += pointValue;
         timesCompleted++;
     }

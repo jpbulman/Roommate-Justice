@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Chore> listOfChores = new ArrayList<Chore>();
     static final int addChoreCode = 1;
-
+    public static String historykey = "com.example.jpbulman.roommatejustice.historykey";
+    private HistoryList history = new HistoryList();
     private ArrayAdapter arrayAdapter;
 
     @Override
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         l.setAdapter(arrayAdapter);
         updateTotalPointsDisplay();
     }
-
 //    public void sendMessage(View view){
 //        //Sends arrayAdapter message on arrayAdapter new screen
 //        Intent intent = new Intent(this,DisplayMessageActivity.class);
@@ -44,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
     public void addChore(View view){
         Intent intent = new Intent(this,AddChoreActivity.class);
         startActivityForResult(intent,addChoreCode);
+    }
+
+    public void showHistory(View view) {
+        Intent intent = new Intent(this,ShowHistoryActivity.class);
+        Bundle bundle= new Bundle();
+        bundle.putSerializable(historykey, history);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
     }
 
     private void chorePopUp(final Chore c){
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 } else if (resultInt == 0) {
                     c.setCompleted();
+                    history.addHistory(c);
                     updateTotalPointsDisplay();
                 } else if (resultInt == 1) {
                     arrayAdapter.remove(c);
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             //view.setBackgroundColor(Color.GREEN);
-                            chorePopUp(c);
+                            chorePopUp(listOfChores.get(i));
                         }
                     });
                     arrayAdapter.notifyDataSetChanged();
