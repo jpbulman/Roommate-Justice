@@ -37,7 +37,7 @@ public class AddChoreActivity extends AppCompatActivity {
         i.putExtras(passingChoreBundle);
         setResult(Activity.RESULT_OK,i);
 
-        MainActivity.addChoreToList(c);
+        //MainActivity.addChoreToList(c);
 
         finish();
     }
