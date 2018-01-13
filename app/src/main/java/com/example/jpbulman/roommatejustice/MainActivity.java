@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,7 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<Chore> listOfChores = new ArrayList<Chore>();
+    static final int addChoreCode = 1;
 
     public static void addChoreToList(Chore c){
         listOfChores.add(c);
@@ -37,7 +41,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void addChore(View view){
         Intent intent = new Intent(this,AddChoreActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,addChoreCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        if(requestCode==addChoreCode){
+            if(resultCode==RESULT_OK){
+                Button b = findViewById(R.id.addChore);
+                b.setText(((Chore)getIntent().getExtras().getSerializable("1234")).toString());
+            }
+        }
     }
 
 }
