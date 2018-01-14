@@ -11,7 +11,7 @@ public class ShowHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
-        HistoryList history = (HistoryList) getIntent().getExtras().getSerializable(MainActivity.historykey);
+        HistoryList history = (HistoryList) getIntent().getExtras().getSerializable(MainActivity.HISTORY_KEY);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,history.getListOfComplete());
         ListView historyview = findViewById(R.id.historyview);
         historyview.setAdapter(arrayAdapter);

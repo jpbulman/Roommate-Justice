@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by JP Bulman on 1/12/2018.
  */
 
-public class Chore implements Serializable{
+public class Chore implements Serializable, Comparable<Chore> {
 
     private int timesCompleted = 0;
     private String name = "";
@@ -18,6 +18,10 @@ public class Chore implements Serializable{
     private static int totalPoints = 0;
     private String timeCompleted;
     private int priorityLevel = 0;
+
+    public int getWorth() {
+        return pointValue;
+    }
 
     public Chore(String name,int pointValue,int priorityLevel){
         this.name=name;
@@ -46,11 +50,9 @@ public class Chore implements Serializable{
     }
 
     public String getInfo() {
-        String returnString = "      Worth: "+String.valueOf(this.pointValue);
+        String returnString = "Worth: "+String.valueOf(this.pointValue);
 
-        if (timeCompleted != null) {
-            returnString += "       Completed " + timeCompleted;
-        }
+        returnString += ", Completed " + timesCompleted + " times";
 
         return returnString;
     }
@@ -67,4 +69,8 @@ public class Chore implements Serializable{
         return totalPoints;
     }
 
+    @Override
+    public int compareTo(Chore other) {
+        return -(new Integer(priorityLevel).compareTo(new Integer(other.getPriorityLevel())));
+    }
 }

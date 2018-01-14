@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Roommate-Justice.iml" filepath="$PROJECT_DIR$/Roommate-Justice.iml" />
+      <module fileurl="file://C:\Users\Matthew\git\Roommate-Justice\Roommate-Justice.iml" filepath="C:\Users\Matthew\git\Roommate-Justice\Roommate-Justice.iml" />
       <module fileurl="file://C:\Users\JP Bulman\Desktop\Programming\RoommateJusticeClone\Roommate-Justice\RoommateJustice.iml" filepath="C:\Users\JP Bulman\Desktop\Programming\RoommateJusticeClone\Roommate-Justice\RoommateJustice.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Matthew\git\Roommate-Justice\app\app.iml" filepath="C:\Users\Matthew\git\Roommate-Justice\app\app.iml" />
     </modules>
   </component>
 </project>

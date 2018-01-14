@@ -18,6 +18,10 @@ import java.util.ArrayList;
 
 public class AddChoreActivity extends AppCompatActivity {
 
+    private boolean editing = false;
+    private Chore editingChore;
+    private int chorePosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,19 @@ public class AddChoreActivity extends AppCompatActivity {
                 aryStr);
 
         s.setAdapter(a);
+
+        Bundle bundle = getIntent().getExtras();
+        try {
+            chorePosition = bundle.getInt(MainActivity.INDEX_EDIT_CHORE_KEY);
+            editingChore = (Chore) bundle.getSerializable(MainActivity.CHORE_EDIT_CHORE_KEY);
+            n.setValue(editingChore.getWorth());
+            s.setSelection(editingChore.getPriorityLevel());
+            EditText editText = (EditText) findViewById(R.id.nameForChore);
+            editText.setText(editingChore.getTitle());
+        } catch (Exception e) {
+
+
+        }
     }
 
     public void finisher(View view){
