@@ -11,7 +11,8 @@ public class HistoryList implements Serializable {
     private ArrayList<Chore> listOfComplete = new ArrayList<Chore>();
 
     public void addHistory(Chore aChore) {
-        this.listOfComplete.add(aChore);
+
+        this.listOfComplete.add(0, aChore);
     }
     public ArrayList<Chore> getListOfComplete(){
         return this.listOfComplete;

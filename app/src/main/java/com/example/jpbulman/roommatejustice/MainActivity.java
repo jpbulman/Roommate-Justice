@@ -20,16 +20,16 @@ public class MainActivity extends AppCompatActivity {
     static final int addChoreCode = 1;
     public static String historykey = "com.example.jpbulman.roommatejustice.historykey";
     private HistoryList history = new HistoryList();
-    private ArrayAdapter arrayAdapter;
+    private JPAdapter choreJPAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listOfChores);
+        choreJPAdapter = new JPAdapter(this, listOfChores);
         ListView l = findViewById(R.id.listViewChoreHolder);
-        l.setAdapter(arrayAdapter);
+        l.setAdapter(choreJPAdapter);
         updateTotalPointsDisplay();
     }
 //    public void sendMessage(View view){
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     history.addHistory(c);
                     updateTotalPointsDisplay();
                 } else if (resultInt == 1) {
-                    arrayAdapter.remove(c);
+                    choreJPAdapter.remove(c);
                 }
             }
         });
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             chorePopUp(listOfChores.get(i));
                         }
                     });
-                    arrayAdapter.notifyDataSetChanged();
+                    choreJPAdapter.notifyDataSetChanged();
                 }
                 catch (Exception e){
                     Log.d("H","",e);}

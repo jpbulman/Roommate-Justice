@@ -4,11 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ScrollView;
+import android.widget.Spinner;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class AddChoreActivity extends AppCompatActivity {
 
@@ -19,6 +25,19 @@ public class AddChoreActivity extends AppCompatActivity {
 
         NumberPicker n = (NumberPicker) findViewById(R.id.numberPicker);
         n.setMaxValue(100);
+
+        Spinner s = (Spinner) findViewById(R.id.spinner);
+
+        ArrayList<String> aryStr = new ArrayList<String>(4);
+        aryStr.add(getString(R.string.no_priority));
+        aryStr.add(getString(R.string.low_priority));
+        aryStr.add(getString(R.string.moderate_priority));
+        aryStr.add(getString(R.string.high_priority));
+
+        ArrayAdapter<String> a = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+                aryStr);
+
+        s.setAdapter(a);
     }
 
     public void finisher(View view){
@@ -29,7 +48,10 @@ public class AddChoreActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.nameForChore);
         String name = editText.getText().toString();
 
-        Chore c = new Chore(name,points);
+        Spinner s = (Spinner)findViewById(R.id.spinner);
+        int positionInSpinner = s.getSelectedItemPosition();
+
+        Chore c = new Chore(name,points,positionInSpinner);
 
         Intent i = new Intent(this,AddChoreActivity.class);
         Bundle passingChoreBundle = new Bundle();
@@ -49,7 +71,7 @@ public class AddChoreActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.nameForChore);
         String name = editText.getText().toString();
 
-        return new Chore(name,points);
+        return new Chore(name,points,0);
     }
 
 }

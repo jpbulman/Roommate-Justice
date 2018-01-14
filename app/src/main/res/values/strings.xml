@@ -9,4 +9,11 @@
     <string name="cancel">Cancel</string>
     <string name="okay">OK</string>
     <string name="total_points">Total Points:</string>
+    <string name="history">History</string>
+    <string name="add_a_chore">Add a chore</string>
+    <string name="high_priority">High Priority</string>
+    <string name="moderate_priority">Moderate Priority</string>
+    <string name="no_priority">No Priority</string>
+    <string name="low_priority">Low Priority</string>
+    <string name="priority">Priority</string>
 </resources>
